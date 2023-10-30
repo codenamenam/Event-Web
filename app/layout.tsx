@@ -7,7 +7,7 @@ import { MantineProvider, Center } from "@mantine/core";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "전국 문해력 테스트!",
+  title: "전국 문해력 테스트",
   description: "우리 학교의 문해력 랭킹은?",
 };
 

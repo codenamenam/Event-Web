@@ -1,5 +1,6 @@
 import { Button, Center, Flex, Text, Divider } from "@mantine/core";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   interface rankingInfo {
@@ -43,48 +44,94 @@ export default function Home() {
   ];
 
   return (
-    <Center>
+    <Center style={{ backgroundImage: "url('/web-background.png')" }}>
       <Flex
         direction={"column"}
         style={{
           width: "340px",
+          marginTop: "50px",
         }}
         align={"center"}
       >
-        <h1>전국 문해력 테스트!</h1>
+        <Flex direction={"column"} align={"center"}>
+          <Text style={{ fontSize: "20px", fontWeight: "500", color: "gray" }}>
+            2023학년도
+          </Text>
+          <Text style={{ fontSize: "27px", fontWeight: "800" }}>
+            전국 문해력능력시험 성적통지표
+          </Text>
+        </Flex>
 
-        <Button>
-          <Text>도전하기</Text>
+        <Button
+          component={Link}
+          href="https://pf.kakao.com/_zmTAG/friend"
+          variant="outline"
+          radius={"xl"}
+          style={{ margin: "20px", width: "20 0px" }}
+          color="red"
+        >
+          <Text style={{ fontWeight: "700", fontSize: "18px" }}>
+            능력시험 응시하기
+          </Text>
         </Button>
 
-        <Flex>
+        <Flex direction={"column"} align={"center"}>
+          <Text>출신학교</Text>
+          <Text style={{ fontSize: "30px", fontWeight: "700" }}>
+            {myRanking["schoolName"]}
+          </Text>
+        </Flex>
+        <Flex align={"center"}>
           <Flex direction={"column"} align={"center"}>
-            <h1>내 점수</h1>
-            <div
+            <Text style={{ fontSize: "15px", fontWeight: "600" }}>
+              학교 순위
+            </Text>
+            <Center
               style={{
                 backgroundColor: "grey",
-                width: "200px",
-                height: "100px",
+                width: "100px",
+                height: "50px",
               }}
             >
-              <Center>
-                <h1>721</h1>
-              </Center>
-            </div>
+              <Text style={{ fontSize: "20px", fontWeight: "500" }}>
+                {myRanking["ranking"]}위
+              </Text>
+            </Center>
           </Flex>
+          <Flex direction={"column"} align={"center"}>
+            <Text style={{ fontSize: "15px", fontWeight: "600" }}>내 점수</Text>
+            <Center
+              style={{
+                backgroundColor: "grey",
+                width: "100px",
+                height: "50px",
+              }}
+            >
+              <Text style={{ fontSize: "20px", fontWeight: "500" }}>9.6</Text>
+            </Center>
+          </Flex>
+          <Flex direction={"column"} align={"center"}>
+            <Text style={{ fontSize: "15px", fontWeight: "600" }}>
+              교내 순위
+            </Text>
 
-          <Flex direction={"column"}>
-            <Button>교내 순위</Button>
-            <Button>올린 순위</Button>
+            <Center
+              style={{
+                backgroundColor: "grey",
+                width: "100px",
+                height: "50px",
+              }}
+            >
+              <Text style={{ fontSize: "20px", fontWeight: "500" }}>2등</Text>
+            </Center>
           </Flex>
         </Flex>
 
         <Flex direction={"column"} align={"center"}>
-          <h1>{myRanking["schoolName"]}</h1>
           <Flex>
             <Text>
-              {myRanking["ranking"]}위 | {myRanking["total"]}명
-              {myRanking["totalScore"]}점 | {myRanking["average"]}점
+              {myRanking["total"]}명 | {myRanking["totalScore"]}점 |{" "}
+              {myRanking["average"]}점
             </Text>
           </Flex>
         </Flex>
@@ -100,7 +147,7 @@ export default function Home() {
             </h1>
             <Flex>
               <Text>
-                {myRanking.total}명 {myRanking.totalScore}점 |{" "}
+                {myRanking.total}명 | {myRanking.totalScore}점 |{" "}
                 {myRanking.average}점
               </Text>
             </Flex>
