@@ -285,7 +285,7 @@ export default function Home() {
 
           <Table
             style={{
-              marginTop: "30px",
+              margin: "30px 0px 30px 0px",
             }}
           >
             <Table.Thead>
@@ -320,13 +320,15 @@ export default function Home() {
         </Flex>
       </Center>
       <Center>
-        <Flex direction="column" style={{ margin: "20px", width: "330px" }}>
+        <Flex
+          direction="column"
+          style={{ margin: "0px 0px 20px 0px", width: "330px" }}
+        >
           <Text
             style={{
               fontSize: "16px",
               color: "gray",
               fontWeight: "600",
-              margin: "5px 0 0 0",
             }}
           >
             테스트 결과 공유하기
