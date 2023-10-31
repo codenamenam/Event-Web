@@ -359,7 +359,7 @@ export default function Home() {
                 height={30}
                 onClick={() => {
                   window.location.href =
-                    "instagram-stories://share?source_application=test";
+                    "instagram-stories://share?source_application=%@";
                 }}
               ></Image>
             </Flex>
