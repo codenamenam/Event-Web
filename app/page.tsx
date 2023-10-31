@@ -6,6 +6,7 @@ import Link from "next/link";
 import html2canvas from "html2canvas";
 import saveAs from "file-saver";
 import { useRef } from "react";
+import { Url } from "next/dist/shared/lib/router/router";
 
 export default function Home() {
   interface rankingInfo {
@@ -59,18 +60,20 @@ export default function Home() {
         const dataURL = canvas.toDataURL("image/png");
         shareToInstagramStory(dataURL);
 
+        /*
         canvas.toBlob((blob) => {
           if (blob !== null) {
             saveAs(blob, "result.png");
           }
         });
+        */
       }
     } catch (error) {
       console.error("Error converting div to image:", error);
     }
   };
 
-  const shareToInstagramStory = (dataURL) => {
+  const shareToInstagramStory = (dataURL: string) => {
     const encodedURL = encodeURIComponent(dataURL);
     window.location.href = `instagram-stories://share?media=${encodedURL}&source_application=YOUR_APP_NAME_HERE`;
   };
