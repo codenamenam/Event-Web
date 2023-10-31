@@ -360,7 +360,7 @@ export default function Home() {
                 width={30}
                 height={30}
                 onClick={() => {
-                  window.location.href = `instagram-stories://share?source_application=safari?media=${encodedURL}`;
+                  window.location.href = `instagram-stories://share?source_application=safari?media}`;
                 }}
               ></Image>
             </Flex>
