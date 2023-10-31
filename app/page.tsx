@@ -57,25 +57,16 @@ export default function Home() {
       const div = divRef.current;
       if (div) {
         const canvas = await html2canvas(div, { scale: 2 });
-        const dataURL = canvas.toDataURL("image/png");
-        shareToInstagramStory(dataURL);
 
-        /*
         canvas.toBlob((blob) => {
           if (blob !== null) {
             saveAs(blob, "result.png");
           }
         });
-        */
       }
     } catch (error) {
       console.error("Error converting div to image:", error);
     }
-  };
-
-  const shareToInstagramStory = (dataURL: string) => {
-    const encodedURL = encodeURIComponent(dataURL);
-    window.location.href = `instagram-stories://share?media=${encodedURL}&source_application=YOUR_APP_NAME_HERE`;
   };
 
   return (
@@ -369,7 +360,6 @@ export default function Home() {
                 width={30}
                 height={30}
                 onClick={() => {
-                  const encodedURL = encodeURIComponent("image/png");
                   window.location.href = `instagram-stories://share?source_application=safari?media=${encodedURL}`;
                 }}
               ></Image>
