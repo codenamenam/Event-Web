@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans_KR } from "next/font/google";
 
 import "@mantine/core/styles.css";
 import { MantineProvider, Center } from "@mantine/core";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Noto_Sans_KR({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "전국 문해력 테스트",

@@ -6,7 +6,19 @@ import Link from "next/link";
 import html2canvas from "html2canvas";
 import saveAs from "file-saver";
 import { useRef } from "react";
-import { Url } from "next/dist/shared/lib/router/router";
+import {
+  Orbit,
+  Noto_Serif_KR,
+  Gowun_Batang,
+  IBM_Plex_Sans_KR,
+  Noto_Sans_KR,
+} from "next/font/google";
+
+const orbit = Orbit({ subsets: ["latin"], weight: "400" });
+const notoseri = Noto_Serif_KR({ subsets: ["latin"], weight: "400" });
+const gowun = Gowun_Batang({ subsets: ["latin"], weight: "400" });
+const ibm = IBM_Plex_Sans_KR({ subsets: ["latin"], weight: "400" });
+const ns = Noto_Sans_KR({ subsets: ["latin"], weight: "500" });
 
 export default function Home() {
   interface rankingInfo {
@@ -85,11 +97,11 @@ export default function Home() {
         >
           <Flex direction={"column"} align={"center"}>
             <Text
-              style={{ fontSize: "20px", fontWeight: "500", color: "gray" }}
+              style={{ fontSize: "18px", fontWeight: "600", color: "gray" }}
             >
               2023학년도
             </Text>
-            <Text style={{ fontSize: "27px", fontWeight: "800" }}>
+            <Text style={{ fontSize: "25px", fontWeight: "700" }}>
               전국 문해력능력시험 성적통지표
             </Text>
           </Flex>
@@ -102,26 +114,20 @@ export default function Home() {
             style={{ margin: "10px 0 30px 0", width: "20 0px" }}
             color="red"
           >
-            <Text style={{ fontWeight: "700", fontSize: "18px" }}>
+            <Text style={{ fontWeight: "600", fontSize: "16px" }}>
               시험 응시하기
             </Text>
           </Button>
           <div
+            className={gowun.className}
             style={{
-              backgroundColor: "white",
-              padding: "20px",
+              backgroundColor: "rgba(255,255,255,0.9)",
+              padding: "10px 0px 0 0",
               borderRadius: "10px",
+              backdropFilter: "blur(10px)",
             }}
           >
             <Flex direction={"column"} align={"center"}>
-              <Text
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "600",
-                }}
-              >
-                나의 학교
-              </Text>
               <Text
                 style={{
                   fontSize: "30px",
@@ -136,12 +142,13 @@ export default function Home() {
               <Flex direction={"column"} align={"center"}>
                 <Center
                   style={{
-                    backgroundColor: "rgba(0,0,0,0.05)",
+                    backgroundColor: "rgba(0,0,0,0.02)",
                     width: "100px",
                     height: "30px",
+                    borderRadius: "5px 0 0 0",
                   }}
                 >
-                  <Text style={{ fontSize: "15px", fontWeight: "600" }}>
+                  <Text style={{ fontSize: "14px", fontWeight: "600" }}>
                     학교 순위
                   </Text>
                 </Center>
@@ -152,7 +159,10 @@ export default function Home() {
                     backgroundColor: "rgba(0,0,0,0.02)",
                   }}
                 >
-                  <Text style={{ fontSize: "20px", fontWeight: "500" }}>
+                  <Text
+                    style={{ fontSize: "20px", fontWeight: "500" }}
+                    className={ns.className}
+                  >
                     {myRanking["ranking"]}위
                   </Text>
                 </Center>
@@ -160,12 +170,12 @@ export default function Home() {
               <Flex direction={"column"} align={"center"}>
                 <Center
                   style={{
-                    backgroundColor: "rgba(0,0,0,0.05)",
+                    backgroundColor: "rgba(0,0,0,0.02)",
                     width: "100px",
                     height: "30px",
                   }}
                 >
-                  <Text style={{ fontSize: "15px", fontWeight: "600" }}>
+                  <Text style={{ fontSize: "14px", fontWeight: "600" }}>
                     내 점수
                   </Text>
                 </Center>
@@ -176,7 +186,10 @@ export default function Home() {
                     backgroundColor: "rgba(0,0,0,0.02)",
                   }}
                 >
-                  <Text style={{ fontSize: "20px", fontWeight: "500" }}>
+                  <Text
+                    style={{ fontSize: "20px", fontWeight: "500" }}
+                    className={ns.className}
+                  >
                     9.6
                   </Text>
                 </Center>
@@ -184,12 +197,13 @@ export default function Home() {
               <Flex direction={"column"} align={"center"}>
                 <Center
                   style={{
-                    backgroundColor: "rgba(0,0,0,0.05)",
+                    backgroundColor: "rgba(0,0,0,0.02)",
                     width: "100px",
                     height: "30px",
+                    borderRadius: "0 5px 0 0",
                   }}
                 >
-                  <Text style={{ fontSize: "15px", fontWeight: "600" }}>
+                  <Text style={{ fontSize: "14px", fontWeight: "600" }}>
                     교내 순위
                   </Text>
                 </Center>
@@ -201,7 +215,10 @@ export default function Home() {
                     backgroundColor: "rgba(0,0,0,0.02)",
                   }}
                 >
-                  <Text style={{ fontSize: "20px", fontWeight: "500" }}>
+                  <Text
+                    style={{ fontSize: "20px", fontWeight: "500" }}
+                    className={ns.className}
+                  >
                     2등
                   </Text>
                 </Center>
@@ -212,12 +229,12 @@ export default function Home() {
               <Flex direction={"column"} align={"center"}>
                 <Center
                   style={{
-                    backgroundColor: "rgba(0,0,0,0.05)",
+                    backgroundColor: "rgba(0,0,0,0.02)",
                     width: "100px",
                     height: "30px",
                   }}
                 >
-                  <Text style={{ fontSize: "15px", fontWeight: "600" }}>
+                  <Text style={{ fontSize: "14px", fontWeight: "600" }}>
                     전체 참여자수
                   </Text>
                 </Center>
@@ -228,7 +245,10 @@ export default function Home() {
                     backgroundColor: "rgba(0,0,0,0.02)",
                   }}
                 >
-                  <Text style={{ fontSize: "20px", fontWeight: "500" }}>
+                  <Text
+                    style={{ fontSize: "20px", fontWeight: "500" }}
+                    className={ns.className}
+                  >
                     {myRanking["total"]}명
                   </Text>
                 </Center>
@@ -236,12 +256,12 @@ export default function Home() {
               <Flex direction={"column"} align={"center"}>
                 <Center
                   style={{
-                    backgroundColor: "rgba(0,0,0,0.05)",
+                    backgroundColor: "rgba(0,0,0,0.02)",
                     width: "100px",
                     height: "30px",
                   }}
                 >
-                  <Text style={{ fontSize: "15px", fontWeight: "600" }}>
+                  <Text style={{ fontSize: "14px", fontWeight: "600" }}>
                     총점
                   </Text>
                 </Center>
@@ -252,7 +272,10 @@ export default function Home() {
                     backgroundColor: "rgba(0,0,0,0.02)",
                   }}
                 >
-                  <Text style={{ fontSize: "20px", fontWeight: "500" }}>
+                  <Text
+                    style={{ fontSize: "20px", fontWeight: "500" }}
+                    className={ns.className}
+                  >
                     {myRanking["totalScore"]}점
                   </Text>
                 </Center>
@@ -260,12 +283,12 @@ export default function Home() {
               <Flex direction={"column"} align={"center"}>
                 <Center
                   style={{
-                    backgroundColor: "rgba(0,0,0,0.05)",
+                    backgroundColor: "rgba(0,0,0,0.02)",
                     width: "100px",
                     height: "30px",
                   }}
                 >
-                  <Text style={{ fontSize: "15px", fontWeight: "600" }}>
+                  <Text style={{ fontSize: "14px", fontWeight: "600" }}>
                     평균 점수
                   </Text>
                 </Center>
@@ -277,7 +300,10 @@ export default function Home() {
                     height: "50px",
                   }}
                 >
-                  <Text style={{ fontSize: "20px", fontWeight: "500" }}>
+                  <Text
+                    style={{ fontSize: "20px", fontWeight: "500" }}
+                    className={ns.className}
+                  >
                     {myRanking["average"]}점
                   </Text>
                 </Center>
@@ -291,11 +317,21 @@ export default function Home() {
             }}
           >
             <Table.Thead>
-              <Table.Th style={{ textAlign: "center" }}>등수</Table.Th>
-              <Table.Th style={{ textAlign: "center" }}>학교 이름</Table.Th>
-              <Table.Th style={{ textAlign: "center" }}>참여자 수 </Table.Th>
-              <Table.Th style={{ textAlign: "center" }}>총점</Table.Th>
-              <Table.Th style={{ textAlign: "center" }}>평균</Table.Th>
+              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
+                등수
+              </Table.Th>
+              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
+                학교 이름
+              </Table.Th>
+              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
+                참여자 수{" "}
+              </Table.Th>
+              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
+                총점
+              </Table.Th>
+              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
+                평균
+              </Table.Th>
             </Table.Thead>
             <Table.Tbody>
               {rankings.map((element) => (
@@ -303,16 +339,28 @@ export default function Home() {
                   <Table.Td style={{ textAlign: "center" }}>
                     {element.ranking}
                   </Table.Td>
-                  <Table.Td style={{ textAlign: "center" }}>
+                  <Table.Td
+                    style={{ textAlign: "center" }}
+                    className={gowun.className}
+                  >
                     {element.schoolName}
                   </Table.Td>
-                  <Table.Td style={{ textAlign: "center" }}>
+                  <Table.Td
+                    style={{ textAlign: "center" }}
+                    className={gowun.className}
+                  >
                     {element.total}
                   </Table.Td>
-                  <Table.Td style={{ textAlign: "center" }}>
+                  <Table.Td
+                    style={{ textAlign: "center" }}
+                    className={gowun.className}
+                  >
                     {element.totalScore}
                   </Table.Td>
-                  <Table.Td style={{ textAlign: "center" }}>
+                  <Table.Td
+                    style={{ textAlign: "center" }}
+                    className={gowun.className}
+                  >
                     {element.average}
                   </Table.Td>
                 </Table.Tr>
@@ -328,10 +376,10 @@ export default function Home() {
         >
           <Text
             style={{
-              fontSize: "16px",
-              color: "gray",
+              fontSize: "18px",
               fontWeight: "600",
             }}
+            className={ibm.className}
           >
             테스트 결과 공유하기
           </Text>
@@ -340,13 +388,40 @@ export default function Home() {
 
           <Flex direction={"column"}>
             <Flex justify={"space-between"}>
-              <Text>1. 버튼을 눌러서 화면 캡처본을 다운로드!</Text>
+              <Text
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  color: "rgba(0,0,0,0.7)",
+                }}
+                className={ibm.className}
+              >
+                1. 버튼을 눌러서 화면 캡처본을 다운로드!
+              </Text>
             </Flex>
-            <Text>2. 카카오톡, 인스타 등 SNS에 공유하기!</Text>
+            <Text
+              style={{
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "rgba(0,0,0,0.7)",
+              }}
+              className={ibm.className}
+            >
+              2. 카카오톡, 인스타 등 SNS에 공유하기!
+            </Text>
           </Flex>
 
           <Center style={{ margin: "10px 0 30px 0" }}>
-            <Flex style={{ width: "150px" }} justify={"space-between"}>
+            <Flex
+              style={{
+                width: "140px",
+                backgroundColor: "rgba(0, 0, 0,0.036  )",
+                padding: "10px 15px 10px 15px",
+                borderRadius: "10px",
+                backdropFilter: "blur(10px)",
+              }}
+              justify={"space-between"}
+            >
               <Image
                 src={"/download-icon.png"}
                 alt="instagram logo"
