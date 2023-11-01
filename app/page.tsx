@@ -7,18 +7,24 @@ import html2canvas from "html2canvas";
 import saveAs from "file-saver";
 import { useRef } from "react";
 import {
-  Orbit,
   Noto_Serif_KR,
   Gowun_Batang,
   IBM_Plex_Sans_KR,
   Noto_Sans_KR,
 } from "next/font/google";
 
-const orbit = Orbit({ subsets: ["latin"], weight: "400" });
 const notoseri = Noto_Serif_KR({ subsets: ["latin"], weight: "400" });
-const gowun = Gowun_Batang({ subsets: ["latin"], weight: "400" });
-const ibm = IBM_Plex_Sans_KR({ subsets: ["latin"], weight: "400" });
-const ns = Noto_Sans_KR({ subsets: ["latin"], weight: "500" });
+const gowun = Gowun_Batang({
+  subsets: ["latin"],
+  weight: "700",
+  display: "swap",
+});
+const ibm = IBM_Plex_Sans_KR({
+  subsets: ["latin"],
+  weight: "600",
+  display: "swap",
+});
+const ns = Noto_Sans_KR({ subsets: ["latin"], weight: "500", display: "swap" });
 
 export default function Home() {
   interface rankingInfo {

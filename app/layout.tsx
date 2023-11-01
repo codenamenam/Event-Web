@@ -4,7 +4,11 @@ import { Noto_Sans_KR } from "next/font/google";
 import "@mantine/core/styles.css";
 import { MantineProvider, Center } from "@mantine/core";
 
-const inter = Noto_Sans_KR({ subsets: ["latin"], weight: "400" });
+const inter = Noto_Sans_KR({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "전국 문해력 테스트",
