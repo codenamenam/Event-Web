@@ -12,6 +12,7 @@ import {
   IBM_Plex_Sans_KR,
   Noto_Sans_KR,
 } from "next/font/google";
+import { useRouter } from "next/navigation";
 
 const gowun = Gowun_Batang({
   subsets: ["latin"],
@@ -24,6 +25,8 @@ const ibm = IBM_Plex_Sans_KR({
 const ns = Noto_Sans_KR({ subsets: ["latin"], weight: "500", display: "swap" });
 
 export default function Home() {
+  const router = useRouter();
+
   interface rankingInfo {
     schoolName: string;
     ranking: number;
@@ -75,7 +78,9 @@ export default function Home() {
 
         canvas.toBlob((blob) => {
           if (blob !== null) {
-            saveAs(blob, "result.png");
+            //saveAs(blob, "result.png");
+            const url = URL.createObjectURL(blob);
+            router.push(url);
           }
         });
       }
