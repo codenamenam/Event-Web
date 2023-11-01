@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import html2canvas from "html2canvas";
 import saveAs from "file-saver";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Noto_Serif_KR,
   Gowun_Batang,
@@ -69,6 +69,12 @@ export default function Home() {
 
   const divRef = useRef<HTMLDivElement>(null);
 
+  const [imageURL, setImageURL] = useState("");
+
+  useEffect(() => {
+    handleDownload();
+  }, []);
+
   // 다운로드 제어
   const handleDownload = async () => {
     try {
@@ -80,7 +86,7 @@ export default function Home() {
           if (blob !== null) {
             //saveAs(blob, "result.png");
             const url = URL.createObjectURL(blob);
-            router.push(url);
+            setImageURL(url);
           }
         });
       }
@@ -430,13 +436,14 @@ export default function Home() {
               }}
               justify={"space-between"}
             >
-              <Image
-                src={"/download-icon.png"}
-                alt="instagram logo"
-                width={35}
-                height={35}
-                onClick={handleDownload}
-              ></Image>
+              <Link href={imageURL}>
+                <Image
+                  src={"/download-icon.png"}
+                  alt="instagram logo"
+                  width={35}
+                  height={35}
+                ></Image>
+              </Link>
               <Image
                 src={"/insta-logo.png"}
                 alt="instagram logo"
