@@ -13,16 +13,13 @@ import {
   Noto_Sans_KR,
 } from "next/font/google";
 
-const notoseri = Noto_Serif_KR({ subsets: ["latin"], weight: "400" });
 const gowun = Gowun_Batang({
   subsets: ["latin"],
   weight: "700",
-  display: "swap",
 });
 const ibm = IBM_Plex_Sans_KR({
   subsets: ["latin"],
   weight: "600",
-  display: "swap",
 });
 const ns = Noto_Sans_KR({ subsets: ["latin"], weight: "500", display: "swap" });
 

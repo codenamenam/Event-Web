@@ -6,7 +6,6 @@ import { MantineProvider, Center } from "@mantine/core";
 
 const inter = Noto_Sans_KR({
   subsets: ["latin"],
-  weight: "400",
   display: "swap",
 });
 
