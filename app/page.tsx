@@ -69,12 +69,6 @@ export default function Home() {
 
   const divRef = useRef<HTMLDivElement>(null);
 
-  const [imageURL, setImageURL] = useState("");
-
-  useEffect(() => {
-    handleDownload();
-  }, []);
-
   // 다운로드 제어
   const handleDownload = async () => {
     try {
@@ -86,7 +80,7 @@ export default function Home() {
           if (blob !== null) {
             //saveAs(blob, "result.png");
             const url = URL.createObjectURL(blob);
-            setImageURL(url);
+            router.push(url);
           }
         });
       }
@@ -122,7 +116,7 @@ export default function Home() {
 
           <Button
             component={Link}
-            href="https://pf.kakao.com/_zmTAG/chat"
+            href="https://pf.kakao.com/_zmTAG/friend"
             variant="outline"
             radius={"xl"}
             style={{ margin: "10px 0 30px 0", width: "20 0px" }}
@@ -436,14 +430,13 @@ export default function Home() {
               }}
               justify={"space-between"}
             >
-              <Link href={imageURL}>
-                <Image
-                  src={"/download-icon.png"}
-                  alt="instagram logo"
-                  width={35}
-                  height={35}
-                ></Image>
-              </Link>
+              <Image
+                src={"/download-icon.png"}
+                alt="instagram logo"
+                width={35}
+                height={35}
+                onClick={handleDownload}
+              ></Image>
               <Image
                 src={"/insta-logo.png"}
                 alt="instagram logo"
