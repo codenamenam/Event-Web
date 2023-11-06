@@ -101,6 +101,15 @@ export default function Home() {
     handleDownload();
   }, []);
 
+  // 링크 복사
+  const handleCopy = () => {
+    let nowUrl = window.location.href;
+    //nowUrl 변수에 담긴 주소를 복사
+    navigator.clipboard.writeText(nowUrl).then(res=>{
+      alert("주소가 복사되었습니다!");
+    })
+  }
+
   // 라우팅 처리
   const pathName = usePathname();
   const user_id = pathName.substr(1);
@@ -464,7 +473,7 @@ export default function Home() {
                 }}
                 className={ibm.className}
               >
-                1. 버튼을 눌러서 화면 캡처본을 다운로드!
+                1. 직접 핸드폰 화면을 캡쳐해주세요!
               </Text>
             </Flex>
             <Text
@@ -475,14 +484,27 @@ export default function Home() {
               }}
               className={ibm.className}
             >
-              2. 카카오톡, 인스타 등 SNS에 공유하기!
+              2. 아래 버튼을 누르고 스토리를 올려주세요!
             </Text>
           </Flex>
 
+          <Flex direction={"column"}>
+            <Flex justify={"space-between"}>
+              <Text
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  color: "rgba(0,0,0,0.7)",
+                }}
+                className={ibm.className}
+              >
+              </Text>
+            </Flex>
+          </Flex>
           <Center style={{ margin: "10px 0 30px 0" }}>
             <Flex
               style={{
-                width: "140px",
+                width: "200px",
                 backgroundColor: "rgba(0, 0, 0,0.036  )",
                 padding: "10px 15px 10px 15px",
                 borderRadius: "10px",
@@ -490,27 +512,44 @@ export default function Home() {
               }}
               justify={"space-between"}
             >
-              <Link href={imageURL}>
+              
+              <Flex direction="column" align="center" justify ="space-between">
                 <Image
-                  src={"/download-icon.png"}
-                  alt="download logo"
-                  width={35}
-                  height={35}
-                  onClick={handleDownload}
+                  src={"/copy-link.png"}
+                  alt="주소를 복사합니다"
+                  width={50}
+                  height={50}
+            
+                  onClick={handleCopy}
                 ></Image>
-              </Link>
-              <Image
-                src={"/insta-logo.png"}
-                alt="instagram logo"
-                width={30}
-                height={30}
-                onClick={() => {
-                  window.location.href = `instagram-stories://share?source_application=safari?media}`;
-                }}
-              ></Image>
+                <Text style={{
+                fontSize: "12px",
+                fontWeight: "500",
+              }}>주소 복사</Text>
+              </Flex>
+              <Flex direction="column" align="center" justify ="space-between">
+                <Image
+                  src={"/insta-logo.png"}
+                  alt="instagram logo"
+                  width={50}
+                  height={50}
+                  onClick={() => {
+                    window.location.href = `instagram://story-camera`;
+                  }}
+                ></Image>
+                <Text style={{
+                  fontSize: "12px",
+                  fontWeight: "500",
+                }}>바로가기</Text>
+              </Flex>
+              
+             
             </Flex>
+            
           </Center>
+    
         </Flex>
+        
       </Center>
     </div>
   );
