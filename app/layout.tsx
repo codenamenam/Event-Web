@@ -12,6 +12,13 @@ const inter = Noto_Sans_KR({
 export const metadata: Metadata = {
   title: "전국 문해력 테스트",
   description: "우리 학교의 문해력 랭킹은?",
+  openGraph: {
+    images: [
+      {
+        url: "https://ebneycbqwtuhyxggghia.supabase.co/storage/v1/object/public/jmt/jmt-banner.jpeg",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
