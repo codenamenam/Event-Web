@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
+export const revalidate = 0;
+
 export async function GET(request: NextRequest) {
   const supabase = createClient(
     "https://ebneycbqwtuhyxggghia.supabase.co",
@@ -8,7 +10,6 @@ export async function GET(request: NextRequest) {
   );
 
   const { data, error } = await supabase.rpc("get_top10_school_ranking");
-  console.log(data);
   return NextResponse.json(data, {
     status: 200,
   });

@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
+export const revalidate = 0;
+
 export async function GET(request: NextRequest) {
   const supabase = createClient(
     "https://ebneycbqwtuhyxggghia.supabase.co",

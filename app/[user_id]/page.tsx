@@ -135,6 +135,9 @@ export default function Home() {
 
   useEffect(() => {
     handleSchoolSummaryData();
+  }, []);
+
+  useEffect(() => {
     handleTopSchoolRanking();
   }, []);
 
