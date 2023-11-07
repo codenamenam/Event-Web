@@ -382,6 +382,7 @@ export default function Home() {
           <Table
             style={{
               margin: "30px 0px 30px 0px",
+              width: "345px",
             }}
           >
             <Table.Thead>
