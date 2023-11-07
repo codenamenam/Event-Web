@@ -410,7 +410,7 @@ export default function Home() {
                     {element.school_ranking}
                   </Table.Td>
                   <Table.Td
-                    style={{ textAlign: "center", fontSize: "12.5px" }}
+                    style={{ textAlign: "center", fontSize: "12.2px" }}
                     className={gowun.className}
                   >
                     {element.school_name}
