@@ -105,10 +105,10 @@ export default function Home() {
   const handleCopy = () => {
     let nowUrl = window.location.href;
     //nowUrl 변수에 담긴 주소를 복사
-    navigator.clipboard.writeText(nowUrl).then(res=>{
+    navigator.clipboard.writeText(nowUrl).then((res) => {
       alert("주소가 복사되었습니다!");
-    })
-  }
+    });
+  };
 
   // 라우팅 처리
   const pathName = usePathname();
@@ -326,7 +326,7 @@ export default function Home() {
                     style={{ fontSize: "20px", fontWeight: "500" }}
                     className={ns.className}
                   >
-                    {mySchoolRanking.totalScore}명
+                    {mySchoolRanking.studentCount}명
                   </Text>
                 </Center>
               </Flex>
@@ -497,14 +497,13 @@ export default function Home() {
                   color: "rgba(0,0,0,0.7)",
                 }}
                 className={ibm.className}
-              >
-              </Text>
+              ></Text>
             </Flex>
           </Flex>
           <Center style={{ margin: "10px 0 30px 0" }}>
             <Flex
               style={{
-                width: "200px",
+                width: "150px",
                 backgroundColor: "rgba(0, 0, 0,0.036  )",
                 padding: "10px 15px 10px 15px",
                 borderRadius: "10px",
@@ -512,44 +511,46 @@ export default function Home() {
               }}
               justify={"space-between"}
             >
-              
-              <Flex direction="column" align="center" justify ="space-between">
+              <Flex direction="column" align="center" justify="space-between">
                 <Image
                   src={"/copy-link.png"}
                   alt="주소를 복사합니다"
-                  width={50}
-                  height={50}
-            
+                  width={35}
+                  height={35}
                   onClick={handleCopy}
                 ></Image>
-                <Text style={{
-                fontSize: "12px",
-                fontWeight: "500",
-              }}>주소 복사</Text>
+                <Text
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: "500",
+                    marginTop: "5px",
+                  }}
+                >
+                  주소 복사
+                </Text>
               </Flex>
-              <Flex direction="column" align="center" justify ="space-between">
+              <Flex direction="column" align="center" justify="space-between">
                 <Image
                   src={"/insta-logo.png"}
                   alt="instagram logo"
-                  width={50}
-                  height={50}
+                  width={35}
+                  height={35}
                   onClick={() => {
                     window.location.href = `instagram://story-camera`;
                   }}
                 ></Image>
-                <Text style={{
-                  fontSize: "12px",
-                  fontWeight: "500",
-                }}>바로가기</Text>
+                <Text
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: "500",
+                  }}
+                >
+                  바로가기
+                </Text>
               </Flex>
-              
-             
             </Flex>
-            
           </Center>
-    
         </Flex>
-        
       </Center>
     </div>
   );
