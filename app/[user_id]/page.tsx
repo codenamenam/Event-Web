@@ -406,30 +406,30 @@ export default function Home() {
             <Table.Tbody>
               {rankings.map((element) => (
                 <Table.Tr key={element.school_ranking}>
-                  <Table.Td style={{ textAlign: "center" }}>
+                  <Table.Td style={{ textAlign: "center", fontSize: "12px" }}>
                     {element.school_ranking}
                   </Table.Td>
                   <Table.Td
-                    style={{ textAlign: "center", fontSize: "12.2px" }}
+                    style={{ textAlign: "center", fontSize: "12px" }}
                     className={gowun.className}
                   >
                     {element.school_name}
                   </Table.Td>
                   <Table.Td
-                    style={{ textAlign: "center" }}
+                    style={{ textAlign: "center", fontSize: "12px" }}
                     className={gowun.className}
                   >
                     {element.student_count}
                   </Table.Td>
 
                   <Table.Td
-                    style={{ textAlign: "center" }}
+                    style={{ textAlign: "center", fontSize: "12px" }}
                     className={gowun.className}
                   >
                     {element.average_score}
                   </Table.Td>
                   <Table.Td
-                    style={{ textAlign: "center" }}
+                    style={{ textAlign: "center", fontSize: "12px" }}
                     className={gowun.className}
                   >
                     {element.total_score}
