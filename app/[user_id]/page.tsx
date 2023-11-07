@@ -36,45 +36,31 @@ export default function Home() {
 
   // 내 학교 정보
   interface schoolInfo {
-    schoolName: string;
-    schoolRanking: number;
-    studentCount: number;
-    totalScore: number;
-    averageScore: number;
+    school_name: string;
+    school_ranking: number;
+    student_count: number;
+    total_score: number;
+    average_score: number;
   }
 
   const [mySchoolRanking, setMySchoolRanking] = useState<schoolInfo>({
-    schoolName: "",
-    schoolRanking: 0,
-    studentCount: 0,
-    totalScore: 0,
-    averageScore: 0,
+    school_name: "",
+    school_ranking: 0,
+    student_count: 0,
+    total_score: 0,
+    average_score: 0,
   });
 
   // 학교별 랭킹 정보
-  const rankings: schoolInfo[] = [
+  const [rankings, setRankings] = useState<schoolInfo[]>([
     {
-      schoolName: "북원여자고등학교",
-      schoolRanking: 1,
-      studentCount: 43,
-      totalScore: 535,
-      averageScore: 9.4,
+      school_name: "",
+      school_ranking: 1,
+      student_count: 0,
+      total_score: 0,
+      average_score: 0,
     },
-    {
-      schoolName: "원주여자고등학교",
-      schoolRanking: 2,
-      studentCount: 35,
-      totalScore: 252,
-      averageScore: 9.3,
-    },
-    {
-      schoolName: "상지여자고등학교",
-      schoolRanking: 3,
-      studentCount: 455,
-      totalScore: 2442,
-      averageScore: 9.1,
-    },
-  ];
+  ]);
 
   //캡처 다운로드
   const [imageURL, setImageURL] = useState("");
@@ -105,10 +91,10 @@ export default function Home() {
   const handleCopy = () => {
     let nowUrl = window.location.href;
     //nowUrl 변수에 담긴 주소를 복사
-    navigator.clipboard.writeText(nowUrl).then(res=>{
+    navigator.clipboard.writeText(nowUrl).then((res) => {
       alert("주소가 복사되었습니다!");
-    })
-  }
+    });
+  };
 
   // 라우팅 처리
   const pathName = usePathname();
@@ -135,19 +121,21 @@ export default function Home() {
       "[user_id]/api/getSchoolRankingData/?query=" + schoolName
     );
     if (result.status === 200) {
-      const tempData: schoolInfo = {
-        schoolName: result.data["school_name"],
-        studentCount: result.data["student_count"],
-        totalScore: result.data["total_score"],
-        averageScore: result.data["average_score"],
-        schoolRanking: result.data["school_ranking"],
-      };
-      setMySchoolRanking(tempData);
+      setMySchoolRanking(result.data);
+    }
+  };
+
+  //SchoolRankingData의 상위 10개 학교 읽어오기
+  const handleTopSchoolRanking = async () => {
+    const result = await axios.get("[user_id]/api/getTopSchoolRanking/");
+    if (result.status === 200) {
+      setRankings(result.data);
     }
   };
 
   useEffect(() => {
     handleSchoolSummaryData();
+    handleTopSchoolRanking();
   }, []);
 
   useEffect(() => {
@@ -240,7 +228,7 @@ export default function Home() {
                     style={{ fontSize: "20px", fontWeight: "500" }}
                     className={ns.className}
                   >
-                    {mySchoolRanking.schoolRanking}위
+                    {mySchoolRanking.school_ranking}위
                   </Text>
                 </Center>
               </Flex>
@@ -326,7 +314,7 @@ export default function Home() {
                     style={{ fontSize: "20px", fontWeight: "500" }}
                     className={ns.className}
                   >
-                    {mySchoolRanking.totalScore}명
+                    {mySchoolRanking.student_count}명
                   </Text>
                 </Center>
               </Flex>
@@ -353,7 +341,7 @@ export default function Home() {
                     style={{ fontSize: "20px", fontWeight: "500" }}
                     className={ns.className}
                   >
-                    {mySchoolRanking.totalScore}점
+                    {mySchoolRanking.total_score}점
                   </Text>
                 </Center>
               </Flex>
@@ -381,7 +369,7 @@ export default function Home() {
                     style={{ fontSize: "20px", fontWeight: "500" }}
                     className={ns.className}
                   >
-                    {mySchoolRanking.averageScore}점
+                    {mySchoolRanking.average_score}점
                   </Text>
                 </Center>
               </Flex>
@@ -403,42 +391,44 @@ export default function Home() {
               <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
                 참여자 수{" "}
               </Table.Th>
-              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
-                총점
-              </Table.Th>
+
               <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
                 평균
+              </Table.Th>
+              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
+                총점
               </Table.Th>
             </Table.Thead>
             <Table.Tbody>
               {rankings.map((element) => (
-                <Table.Tr key={element.schoolName}>
+                <Table.Tr key={element.school_ranking}>
                   <Table.Td style={{ textAlign: "center" }}>
-                    {element.schoolRanking}
+                    {element.school_ranking}
+                  </Table.Td>
+                  <Table.Td
+                    style={{ textAlign: "center", fontSize: "12.5px" }}
+                    className={gowun.className}
+                  >
+                    {element.school_name}
                   </Table.Td>
                   <Table.Td
                     style={{ textAlign: "center" }}
                     className={gowun.className}
                   >
-                    {element.schoolName}
+                    {element.student_count}
+                  </Table.Td>
+
+                  <Table.Td
+                    style={{ textAlign: "center" }}
+                    className={gowun.className}
+                  >
+                    {element.average_score}
                   </Table.Td>
                   <Table.Td
                     style={{ textAlign: "center" }}
                     className={gowun.className}
                   >
-                    {element.studentCount}
-                  </Table.Td>
-                  <Table.Td
-                    style={{ textAlign: "center" }}
-                    className={gowun.className}
-                  >
-                    {element.totalScore}
-                  </Table.Td>
-                  <Table.Td
-                    style={{ textAlign: "center" }}
-                    className={gowun.className}
-                  >
-                    {element.averageScore}
+                    {element.total_score}
                   </Table.Td>
                 </Table.Tr>
               ))}
@@ -473,7 +463,7 @@ export default function Home() {
                 }}
                 className={ibm.className}
               >
-                1. 직접 핸드폰 화면을 캡쳐해주세요!
+                1. 결과 화면을 캡쳐하기!
               </Text>
             </Flex>
             <Text
@@ -484,7 +474,7 @@ export default function Home() {
               }}
               className={ibm.className}
             >
-              2. 아래 버튼을 누르고 스토리를 올려주세요!
+              2. 주소를 복사하고 스토리에 캡처 화면을 함께 공유하기!
             </Text>
           </Flex>
 
@@ -497,14 +487,13 @@ export default function Home() {
                   color: "rgba(0,0,0,0.7)",
                 }}
                 className={ibm.className}
-              >
-              </Text>
+              ></Text>
             </Flex>
           </Flex>
           <Center style={{ margin: "10px 0 30px 0" }}>
             <Flex
               style={{
-                width: "200px",
+                width: "150px",
                 backgroundColor: "rgba(0, 0, 0,0.036  )",
                 padding: "10px 15px 10px 15px",
                 borderRadius: "10px",
@@ -512,44 +501,46 @@ export default function Home() {
               }}
               justify={"space-between"}
             >
-              
-              <Flex direction="column" align="center" justify ="space-between">
+              <Flex direction="column" align="center" justify="space-between">
                 <Image
                   src={"/copy-link.png"}
                   alt="주소를 복사합니다"
-                  width={50}
-                  height={50}
-            
+                  width={35}
+                  height={35}
                   onClick={handleCopy}
                 ></Image>
-                <Text style={{
-                fontSize: "12px",
-                fontWeight: "500",
-              }}>주소 복사</Text>
+                <Text
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: "500",
+                    marginTop: "5px",
+                  }}
+                >
+                  주소 복사
+                </Text>
               </Flex>
-              <Flex direction="column" align="center" justify ="space-between">
+              <Flex direction="column" align="center" justify="space-between">
                 <Image
                   src={"/insta-logo.png"}
                   alt="instagram logo"
-                  width={50}
-                  height={50}
+                  width={35}
+                  height={35}
                   onClick={() => {
                     window.location.href = `instagram://story-camera`;
                   }}
                 ></Image>
-                <Text style={{
-                  fontSize: "12px",
-                  fontWeight: "500",
-                }}>바로가기</Text>
+                <Text
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: "500",
+                  }}
+                >
+                  바로가기
+                </Text>
               </Flex>
-              
-             
             </Flex>
-            
           </Center>
-    
         </Flex>
-        
       </Center>
     </div>
   );
