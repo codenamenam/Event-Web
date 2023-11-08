@@ -427,7 +427,7 @@ export default function Home() {
                     학교 이름
                   </Table.Th>
                   <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
-                    참여자 수
+                    참여
                   </Table.Th>
 
                   <Table.Th
