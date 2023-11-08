@@ -178,7 +178,7 @@ export default function Home() {
               2023학년도
             </Text>
             <Text style={{ fontSize: "25px", fontWeight: "700" }}>
-              문해능력시험 성적통지표
+              전국 문해능력시험 성적통지표
             </Text>
           </Flex>
 
