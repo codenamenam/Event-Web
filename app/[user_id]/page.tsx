@@ -521,6 +521,59 @@ export default function Home() {
             }}
             className={ibm.className}
           >
+            ☕️ 커피 기프티콘 100장을 드립니다!
+          </Text>
+
+          <Divider style={{ margin: "3px 0px 9px 0px" }} />
+
+          <Flex direction={"column"}>
+            <Flex justify={"space-between"}>
+              <Text
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  color: "rgba(0,0,0,0.7)",
+                }}
+                className={ibm.className}
+              >
+                1. 인스타그램에서 @dopaminedefense를 태그하고
+              </Text>
+            </Flex>
+            <Text
+              style={{
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "rgba(0,0,0,0.7)",
+              }}
+              className={ibm.className}
+            >
+              2. 결과를 공유해주세요!
+            </Text>
+            <Text
+              style={{
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "rgba(0,0,0,0.7)",
+              }}
+              className={ibm.className}
+            >
+              3. 추첨을 통해 100분께 커피를 보내드립니다!
+            </Text>
+          </Flex>
+        </Flex>
+      </Center>
+      <Center>
+        <Flex
+          direction="column"
+          style={{ margin: "0px 0px 20px 0px", width: "330px" }}
+        >
+          <Text
+            style={{
+              fontSize: "18px",
+              fontWeight: "600",
+            }}
+            className={ibm.className}
+          >
             테스트 결과 공유하기
           </Text>
 
