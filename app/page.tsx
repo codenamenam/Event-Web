@@ -98,11 +98,18 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <Flex direction={"column"} align={"center"} justify={"center"}>
+      <Flex
+        direction={"column"}
+        align={"center"}
+        justify={"center"}
+        style={{ padding: "20px" }}
+      >
         <Text
           style={{ fontSize: "25px", fontWeight: "500", marginTop: "200px" }}
         >
-          존재하지 않는 페이지입니다.
+          채팅방 하단의 <br />
+          문해력 테스트를 클릭하고 <br />
+          바로 참여해보세요!
         </Text>
       </Flex>
     </div>

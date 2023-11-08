@@ -184,7 +184,7 @@ export default function Home() {
 
           <Button
             component={Link}
-            href="https://pf.kakao.com/_zmTAG/friend"
+            href="https://pf.kakao.com/_zmTAG/chat"
             variant="outline"
             radius={"xl"}
             style={{ margin: "10px 0 30px 0", width: "20 0px" }}
