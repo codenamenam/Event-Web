@@ -203,10 +203,15 @@ export default function Home() {
               backdropFilter: "blur(10px)",
             }}
           >
-            <Flex direction={"column"} align={"center"}>
+            <Flex
+              direction={"column"}
+              align={"center"}
+              justify={"center"}
+              style={{ width: "300px", padding: "10px" }}
+            >
               <Text
                 style={{
-                  fontSize: "30px",
+                  fontSize: "27px",
                   fontWeight: "700",
                   marginBottom: "10px",
                 }}
@@ -387,65 +392,121 @@ export default function Home() {
             </Flex>
           </div>
 
-          <Table
+          <div
             style={{
-              margin: "30px 0px 30px 0px",
-              width: "345px",
+              minHeight: "100px",
+              maxHeight: "370px",
+              overflowY: "auto",
+              margin: "40px 0px 30px 0px",
             }}
           >
-            <Table.Thead>
-              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
-                등수
-              </Table.Th>
-              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
-                학교 이름
-              </Table.Th>
-              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
-                참여자 수{" "}
-              </Table.Th>
+            <Table
+              style={{
+                margin: "0px",
+                width: "345px",
+              }}
+            >
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th
+                    style={{
+                      textAlign: "center",
+                      fontSize: "13px",
+                      padding: "0px",
+                    }}
+                  >
+                    등수
+                  </Table.Th>
+                  <Table.Th
+                    style={{
+                      textAlign: "center",
+                      fontSize: "13px",
+                      padding: "0px",
+                    }}
+                  >
+                    학교 이름
+                  </Table.Th>
+                  <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
+                    참여자 수
+                  </Table.Th>
 
-              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
-                평균
-              </Table.Th>
-              <Table.Th style={{ textAlign: "center", fontSize: "13px" }}>
-                총점
-              </Table.Th>
-            </Table.Thead>
-            <Table.Tbody>
-              {rankings.map((element) => (
-                <Table.Tr key={element.school_ranking}>
-                  <Table.Td style={{ textAlign: "center", fontSize: "12px" }}>
-                    {element.school_ranking}
-                  </Table.Td>
-                  <Table.Td
-                    style={{ textAlign: "center", fontSize: "12px" }}
-                    className={gowun.className}
+                  <Table.Th
+                    style={{
+                      textAlign: "center",
+                      fontSize: "13px",
+                      padding: "0px",
+                    }}
                   >
-                    {element.school_name}
-                  </Table.Td>
-                  <Table.Td
-                    style={{ textAlign: "center", fontSize: "12px" }}
-                    className={gowun.className}
+                    평균
+                  </Table.Th>
+                  <Table.Th
+                    style={{
+                      textAlign: "center",
+                      fontSize: "13px",
+                      padding: "0px",
+                    }}
                   >
-                    {element.student_count}
-                  </Table.Td>
-
-                  <Table.Td
-                    style={{ textAlign: "center", fontSize: "12px" }}
-                    className={gowun.className}
-                  >
-                    {element.average_score}
-                  </Table.Td>
-                  <Table.Td
-                    style={{ textAlign: "center", fontSize: "12px" }}
-                    className={gowun.className}
-                  >
-                    {element.total_score}
-                  </Table.Td>
+                    총점
+                  </Table.Th>
                 </Table.Tr>
-              ))}
-            </Table.Tbody>
-          </Table>
+              </Table.Thead>
+              <Table.Tbody>
+                {rankings.map((element) => (
+                  <Table.Tr key={element.school_ranking}>
+                    <Table.Td
+                      style={{
+                        textAlign: "center",
+                        fontSize: "12px",
+                        padding: "0px",
+                      }}
+                    >
+                      {element.school_ranking}
+                    </Table.Td>
+                    <Table.Td
+                      style={{
+                        textAlign: "center",
+                        fontSize: "12px",
+                        padding: "0px",
+                      }}
+                      className={gowun.className}
+                    >
+                      {element.school_name}
+                    </Table.Td>
+                    <Table.Td
+                      style={{
+                        textAlign: "center",
+                        fontSize: "12px",
+                        padding: "7px 0px 7px 0px",
+                      }}
+                      className={gowun.className}
+                    >
+                      {element.student_count}
+                    </Table.Td>
+
+                    <Table.Td
+                      style={{
+                        textAlign: "center",
+                        fontSize: "12px",
+                        padding: "7px 0px 7px 0px",
+                      }}
+                      className={gowun.className}
+                    >
+                      {element.average_score}
+                    </Table.Td>
+                    <Table.Td
+                      style={{
+                        textAlign: "center",
+                        fontSize: "12px",
+                      }}
+                      className={gowun.className}
+                    >
+                      {element.total_score}
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+              </Table.Tbody>
+            </Table>
+          </div>
         </Flex>
       </Center>
       <Center>
