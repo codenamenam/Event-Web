@@ -27,6 +27,7 @@ export default function Home() {
     student_count: number;
     total_score: number;
     average_score: number;
+    school_id: number;
   }
 
   // 학교별 랭킹 정보
@@ -37,6 +38,7 @@ export default function Home() {
       student_count: 0,
       total_score: 0,
       average_score: 0,
+      school_id: 0,
     },
   ]);
 
@@ -44,18 +46,8 @@ export default function Home() {
   const searchParams = useSearchParams();
   const school_name = searchParams.get("name");
 
-  //SchoolRankingData의 상위 3개 학교 읽어오기
-  const handleTopSchoolRanking = async () => {
-    const result = await axios.get("[user_id]/api/getTopSchoolRanking/");
-
-    if (result.status === 200) {
-      const smallResult = result.data.slice(0, 3);
-      setRankings(smallResult);
-    }
-  };
-
   useEffect(() => {
-    handleTopSchoolRanking();
+    handleLeagueClick("etc");
   }, []);
 
   // 학생 리그 분류
@@ -63,9 +55,7 @@ export default function Home() {
 
   const handleLeagueClick = async (type: string) => {
     setActiveButton(type);
-    const result = await axios.get(
-      "[user_id]/api/getTopSchoolRankingGroup/?query=" + type
-    );
+    const result = await axios.get("result/api/?query=" + type);
     if (result.status === 200) {
       const smallResult = result.data.slice(0, 3);
       setRankings(smallResult);
@@ -397,7 +387,7 @@ export default function Home() {
               </Table.Thead>
               <Table.Tbody>
                 {rankings.map((element) => (
-                  <Table.Tr key={element.school_ranking}>
+                  <Table.Tr key={element.school_id}>
                     <Table.Td
                       style={{
                         textAlign: "center",
