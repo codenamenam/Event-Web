@@ -89,13 +89,24 @@ export default function Home() {
             href="https://pf.kakao.com/_zmTAG/chat"
             variant="outline"
             radius={"xl"}
-            style={{ margin: "10px 0 30px 0", width: "20 0px" }}
+            style={{ margin: "10px 0 15px 0", width: "20 0px" }}
             color="red"
           >
             <Text style={{ fontWeight: "600", fontSize: "16px" }}>
               시험 응시하기
             </Text>
           </Button>
+          <Text
+            style={{
+              fontSize: "14px",
+              fontWeight: "700",
+              margin: "0px 0px 0px 0px",
+              padding: "5px",
+              color: "rgb(0,0,0, 0.7)",
+            }}
+          >
+            시험 응시하기를 누르고 전체 순위를 확인해보세요!
+          </Text>
           <div
             className={ibm.className}
             style={{
