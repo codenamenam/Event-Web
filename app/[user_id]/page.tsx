@@ -616,17 +616,6 @@ export default function Home() {
             >
               3. 선착순 100분께 커피를 보내드립니다! (진행중)
             </Text>
-            <Text
-              style={{
-                fontSize: "12px",
-                fontWeight: "600",
-                color: "rgba(0,0,0,0.7)",
-                margin: "10px 0px 0px 0px"
-              }}
-              className={ibm.className}
-            >
-              (비공개 인스타 계정이라면 @dopaminedefense 디엠으로 캡쳐본을 보내주세요!)
-            </Text>
           </Flex>
         </Flex>
       </Center>
