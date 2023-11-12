@@ -1,21 +1,12 @@
 "use client";
 
-import {
-  Button,
-  Center,
-  Flex,
-  Text,
-  Table,
-  Divider,
-  rgba,
-} from "@mantine/core";
+import { Button, Center, Flex, Text, Table } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
-import html2canvas from "html2canvas";
 
 import { useEffect, useRef, useState } from "react";
 import { Gowun_Batang, IBM_Plex_Sans_KR, Noto_Sans_KR } from "next/font/google";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import axios from "axios";
 
 const gowun = Gowun_Batang({
@@ -29,19 +20,6 @@ const ibm = IBM_Plex_Sans_KR({
 const ns = Noto_Sans_KR({ subsets: ["latin"], weight: "500", display: "swap" });
 
 export default function Home() {
-  //내 정보
-  interface myInfo {
-    schoolName: string;
-    myScore: number;
-    myRanking: number;
-  }
-
-  const [myData, setMyData] = useState<myInfo>({
-    schoolName: "",
-    myScore: 0,
-    myRanking: 0,
-  });
-
   // 내 학교 정보
   interface schoolInfo {
     school_name: string;
@@ -49,17 +27,7 @@ export default function Home() {
     student_count: number;
     total_score: number;
     average_score: number;
-    school_id: number;
   }
-
-  const [mySchoolRanking, setMySchoolRanking] = useState<schoolInfo>({
-    school_name: "",
-    school_ranking: 0,
-    student_count: 0,
-    total_score: 0,
-    average_score: 0,
-    school_id: 0,
-  });
 
   // 학교별 랭킹 정보
   const [rankings, setRankings] = useState<schoolInfo[]>([
@@ -69,104 +37,26 @@ export default function Home() {
       student_count: 0,
       total_score: 0,
       average_score: 0,
-      school_id: 0,
     },
   ]);
 
-  //캡처 다운로드
-  const [imageURL, setImageURL] = useState("");
-  const divRef = useRef<HTMLDivElement>(null);
-  const handleDownload = async () => {
-    try {
-      const div = divRef.current;
-      if (div) {
-        const canvas = await html2canvas(div, { scale: 2 });
-
-        canvas.toBlob((blob) => {
-          if (blob !== null) {
-            //saveAs(blob, "result.png");
-            const url = URL.createObjectURL(blob);
-            setImageURL(url);
-          }
-        });
-      }
-    } catch (error) {
-      console.error("Error converting div to image:", error);
-    }
-  };
-  useEffect(() => {
-    handleDownload();
-  }, []);
-
-  // 링크 복사
-  const handleCopy = () => {
-    let nowUrl = window.location.href;
-    //nowUrl 변수에 담긴 주소를 복사
-    navigator.clipboard.writeText(nowUrl).then((res) => {
-      alert("주소가 복사되었습니다!");
-    });
-  };
-
   // 라우팅 처리
-  const pathName = usePathname();
-  const user_id = pathName.substr(1);
+  const searchParams = useSearchParams();
+  const school_name = searchParams.get("name");
 
-  //SchoolSummaryData 값 읽어오기
-  const handleSchoolSummaryData = async () => {
-    const result = await axios.get(
-      "[user_id]/api/getSchoolSummaryData/?query=" + user_id
-    );
+  //SchoolRankingData의 상위 3개 학교 읽어오기
+  const handleTopSchoolRanking = async () => {
+    const result = await axios.get("[user_id]/api/getTopSchoolRanking/");
+
     if (result.status === 200) {
-      const tempData: myInfo = {
-        schoolName: result.data["school_name"],
-        myScore: result.data["score"],
-        myRanking: result.data["ranking"],
-      };
-      setMyData(tempData);
+      const smallResult = result.data.slice(0, 3);
+      setRankings(smallResult);
     }
   };
 
-  //SchoolRankingData 값 읽어오기
-  const handleSchoolRankingData = async (schoolName: string) => {
-    const result = await axios.get(
-      "[user_id]/api/getSchoolRankingData/?query=" + schoolName
-    );
-    if (result.status === 200) {
-      setMySchoolRanking(result.data);
-    }
-  };
-
-  //SchoolRankingData의 상위 10개 학교 읽어오기
-  // const handleTopSchoolRanking = async () => {
-  //   const result = await axios.get("[user_id]/api/getTopSchoolRanking/");
-  //   if (result.status === 200) {
-  //     setRankings(result.data);
-  //   }
-  // };
-
   useEffect(() => {
-    if (!myData.schoolName) {
-      return;
-    } else {
-      handleSchoolRankingData(myData.schoolName);
-    }
-  }, [myData.schoolName]);
-
-  useEffect(() => {
-    handleSchoolSummaryData();
+    handleTopSchoolRanking();
   }, []);
-
-  useEffect(() => {
-    handleLeagueClick("etc");
-  }, []);
-
-  useEffect(() => {
-    if (!myData.schoolName) {
-      return;
-    } else {
-      handleSchoolRankingData(myData.schoolName);
-    }
-  }, [myData.schoolName]);
 
   // 학생 리그 분류
   const [activeButton, setActiveButton] = useState<string>("etc");
@@ -174,19 +64,17 @@ export default function Home() {
   const handleLeagueClick = async (type: string) => {
     setActiveButton(type);
     const result = await axios.get(
-      "[user_id]/api/getTopSchoolRankingGroup/?type=" + type
+      "[user_id]/api/getTopSchoolRankingGroup/?query=" + type
     );
     if (result.status === 200) {
-      setRankings(result.data);
+      const smallResult = result.data.slice(0, 3);
+      setRankings(smallResult);
     }
   };
 
   return (
     <div style={{ backgroundImage: "url('/web-background.png')" }}>
-      <Center
-        ref={divRef}
-        style={{ backgroundImage: "url('/web-background.png')" }}
-      >
+      <Center style={{ backgroundImage: "url('/web-background.png')" }}>
         <Flex
           direction={"column"}
           style={{
@@ -219,7 +107,7 @@ export default function Home() {
             </Text>
           </Button>
           <div
-            className={gowun.className}
+            className={ibm.className}
             style={{
               backgroundColor: "rgba(255,255,255,0.9)",
               padding: "10px 0px 0 0",
@@ -240,7 +128,7 @@ export default function Home() {
                   marginBottom: "10px",
                 }}
               >
-                {myData.schoolName}
+                {school_name}
               </Text>
             </Flex>
             <Flex align={"center"}>
@@ -266,9 +154,9 @@ export default function Home() {
                 >
                   <Text
                     style={{ fontSize: "20px", fontWeight: "500" }}
-                    className={ns.className}
+                    className={ibm.className}
                   >
-                    {mySchoolRanking.school_ranking}위
+                    ?위
                   </Text>
                 </Center>
               </Flex>
@@ -293,9 +181,9 @@ export default function Home() {
                 >
                   <Text
                     style={{ fontSize: "20px", fontWeight: "500" }}
-                    className={ns.className}
+                    className={ibm.className}
                   >
-                    {myData.myScore}
+                    ?
                   </Text>
                 </Center>
               </Flex>
@@ -322,9 +210,9 @@ export default function Home() {
                 >
                   <Text
                     style={{ fontSize: "20px", fontWeight: "500" }}
-                    className={ns.className}
+                    className={ibm.className}
                   >
-                    {myData.myRanking}등
+                    ?등
                   </Text>
                 </Center>
               </Flex>
@@ -352,9 +240,9 @@ export default function Home() {
                 >
                   <Text
                     style={{ fontSize: "20px", fontWeight: "500" }}
-                    className={ns.className}
+                    className={ibm.className}
                   >
-                    {mySchoolRanking.student_count}명
+                    ?명
                   </Text>
                 </Center>
               </Flex>
@@ -379,9 +267,9 @@ export default function Home() {
                 >
                   <Text
                     style={{ fontSize: "20px", fontWeight: "500" }}
-                    className={ns.className}
+                    className={ibm.className}
                   >
-                    {mySchoolRanking.total_score}점
+                    ?점
                   </Text>
                 </Center>
               </Flex>
@@ -407,9 +295,9 @@ export default function Home() {
                 >
                   <Text
                     style={{ fontSize: "20px", fontWeight: "500" }}
-                    className={ns.className}
+                    className={ibm.className}
                   >
-                    {mySchoolRanking.average_score}점
+                    ?점
                   </Text>
                 </Center>
               </Flex>
@@ -509,7 +397,7 @@ export default function Home() {
               </Table.Thead>
               <Table.Tbody>
                 {rankings.map((element) => (
-                  <Table.Tr key={element.school_id}>
+                  <Table.Tr key={element.school_ranking}>
                     <Table.Td
                       style={{
                         textAlign: "center",
@@ -525,7 +413,7 @@ export default function Home() {
                         fontSize: "12px",
                         padding: "0px",
                       }}
-                      className={gowun.className}
+                      className={ibm.className}
                     >
                       {element.school_name}
                     </Table.Td>
@@ -535,7 +423,7 @@ export default function Home() {
                         fontSize: "12px",
                         padding: "7px 0px 7px 0px",
                       }}
-                      className={gowun.className}
+                      className={ibm.className}
                     >
                       {element.student_count}
                     </Table.Td>
@@ -546,7 +434,7 @@ export default function Home() {
                         fontSize: "12px",
                         padding: "7px 0px 7px 0px",
                       }}
-                      className={gowun.className}
+                      className={ibm.className}
                     >
                       {element.average_score}
                     </Table.Td>
@@ -555,7 +443,7 @@ export default function Home() {
                         textAlign: "center",
                         fontSize: "12px",
                       }}
-                      className={gowun.className}
+                      className={ibm.className}
                     >
                       {element.total_score}
                     </Table.Td>
@@ -563,166 +451,21 @@ export default function Home() {
                 ))}
               </Table.Tbody>
             </Table>
+            {rankings.length > 1 && (
+              <Image
+                src={"/blur-result.png"}
+                width={0}
+                height={0}
+                sizes="100vh"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  filter: "blur(3px)",
+                }}
+                alt="asdf"
+              />
+            )}
           </div>
-        </Flex>
-      </Center>
-      <Center>
-        <Flex
-          direction="column"
-          style={{ margin: "0px 0px 20px 0px", width: "330px" }}
-        >
-          <Text
-            style={{
-              fontSize: "18px",
-              fontWeight: "600",
-            }}
-            className={ibm.className}
-          >
-            [진행중] ☕️ 기프티콘 100장을 드립니다!
-          </Text>
-
-          <Divider style={{ margin: "3px 0px 9px 0px" }} />
-
-          <Flex direction={"column"}>
-            <Flex justify={"space-between"}>
-              <Text
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  color: "rgba(0,0,0,0.7)",
-                }}
-                className={ibm.className}
-              >
-                1. 인스타그램에서 @dopaminedefense를 태그하고
-              </Text>
-            </Flex>
-            <Text
-              style={{
-                fontSize: "14px",
-                fontWeight: "600",
-                color: "rgba(0,0,0,0.7)",
-              }}
-              className={ibm.className}
-            >
-              2. 결과를 공유해주세요!
-            </Text>
-            <Text
-              style={{
-                fontSize: "14px",
-                fontWeight: "600",
-                color: "rgba(0,0,0,0.7)",
-              }}
-              className={ibm.className}
-            >
-              3. 선착순 100분께 커피를 보내드립니다!
-            </Text>
-          </Flex>
-        </Flex>
-      </Center>
-      <Center>
-        <Flex
-          direction="column"
-          style={{ margin: "0px 0px 20px 0px", width: "330px" }}
-        >
-          <Text
-            style={{
-              fontSize: "18px",
-              fontWeight: "600",
-            }}
-            className={ibm.className}
-          >
-            테스트 결과 공유하기
-          </Text>
-
-          <Divider style={{ margin: "3px 0px 9px 0px" }} />
-
-          <Flex direction={"column"}>
-            <Flex justify={"space-between"}>
-              <Text
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  color: "rgba(0,0,0,0.7)",
-                }}
-                className={ibm.className}
-              >
-                1. 결과 화면을 캡쳐하기!
-              </Text>
-            </Flex>
-            <Text
-              style={{
-                fontSize: "14px",
-                fontWeight: "600",
-                color: "rgba(0,0,0,0.7)",
-              }}
-              className={ibm.className}
-            >
-              2. 주소를 복사하고 스토리에 캡처 화면을 함께 공유하기!
-            </Text>
-          </Flex>
-
-          <Flex direction={"column"}>
-            <Flex justify={"space-between"}>
-              <Text
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  color: "rgba(0,0,0,0.7)",
-                }}
-                className={ibm.className}
-              ></Text>
-            </Flex>
-          </Flex>
-          <Center style={{ margin: "10px 0 30px 0" }}>
-            <Flex
-              style={{
-                width: "150px",
-                backgroundColor: "rgba(0, 0, 0,0.036  )",
-                padding: "10px 15px 10px 15px",
-                borderRadius: "10px",
-                backdropFilter: "blur(10px)",
-              }}
-              justify={"space-between"}
-            >
-              <Flex direction="column" align="center" justify="space-between">
-                <Image
-                  src={"/copy-link.png"}
-                  alt="주소를 복사합니다"
-                  width={35}
-                  height={35}
-                  onClick={handleCopy}
-                ></Image>
-                <Text
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: "500",
-                    marginTop: "5px",
-                  }}
-                >
-                  주소 복사
-                </Text>
-              </Flex>
-              <Flex direction="column" align="center" justify="space-between">
-                <Image
-                  src={"/insta-logo.png"}
-                  alt="instagram logo"
-                  width={35}
-                  height={35}
-                  onClick={() => {
-                    window.location.href = `instagram://story-camera`;
-                  }}
-                ></Image>
-                <Text
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: "500",
-                  }}
-                >
-                  바로가기
-                </Text>
-              </Flex>
-            </Flex>
-          </Center>
         </Flex>
       </Center>
     </div>

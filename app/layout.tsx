@@ -28,7 +28,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={inter.className}
+        style={{
+          backgroundImage: "url('/web-background.png')",
+          backgroundRepeat: "repeat",
+        }}
+      >
         <MantineProvider>{children}</MantineProvider>
       </body>
     </html>
