@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   const { data, error } = await supabase.rpc("get_top10_school_ranking_group", {
     type: school_type,
   });
-  console.log(data);
+
   return NextResponse.json(data, {
     status: 200,
   });

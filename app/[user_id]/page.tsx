@@ -254,7 +254,7 @@ export default function Home() {
                   }}
                 >
                   <Text style={{ fontSize: "14px", fontWeight: "600" }}>
-                    학교 순위
+                    전체 학교 순위
                   </Text>
                 </Center>
                 <Center
