@@ -578,7 +578,7 @@ export default function Home() {
             }}
             className={ibm.className}
           >
-            [선착순] ☕️ 기프티콘 100% 드립니다!
+            우리 학교 1등 만들고 간식먹자!
           </Text>
 
           <Divider style={{ margin: "3px 0px 9px 0px" }} />
@@ -593,7 +593,7 @@ export default function Home() {
                 }}
                 className={ibm.className}
               >
-                1. 인스타그램에서 @dopaminedefense를 태그하고
+                결과 화면을 캡쳐하고 링크와 함께 공유해보세요!
               </Text>
             </Flex>
             <Text
@@ -604,63 +604,20 @@ export default function Home() {
               }}
               className={ibm.className}
             >
-              2. 결과를 공유해주세요!
+              1등 학교에는 달콤한 간식이 찾아갑니다! 🚚
             </Text>
             <Text
               style={{
-                fontSize: "14px",
+                fontSize: "12px",
                 fontWeight: "600",
                 color: "rgba(0,0,0,0.7)",
+                margin: "20px 0px 0px 0px"
               }}
               className={ibm.className}
             >
-              3. 선착순 100분께 커피를 보내드립니다! (진행중)
+              (1등 못해도 @dopaminedefense 태그해서 공개로 올리면 카페 기프티콘을 무조건 받을 수 있어요!)
             </Text>
           </Flex>
-        </Flex>
-      </Center>
-      <Center>
-        <Flex
-          direction="column"
-          style={{ margin: "0px 0px 20px 0px", width: "330px" }}
-        >
-          <Text
-            style={{
-              fontSize: "18px",
-              fontWeight: "600",
-            }}
-            className={ibm.className}
-          >
-            테스트 결과 공유하기
-          </Text>
-
-          <Divider style={{ margin: "3px 0px 9px 0px" }} />
-
-          <Flex direction={"column"}>
-            <Flex justify={"space-between"}>
-              <Text
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  color: "rgba(0,0,0,0.7)",
-                }}
-                className={ibm.className}
-              >
-                1. 결과 화면을 캡쳐하기!
-              </Text>
-            </Flex>
-            <Text
-              style={{
-                fontSize: "14px",
-                fontWeight: "600",
-                color: "rgba(0,0,0,0.7)",
-              }}
-              className={ibm.className}
-            >
-              2. 주소를 복사하고 스토리에 캡처 화면을 함께 공유하기!
-            </Text>
-          </Flex>
-
           <Flex direction={"column"}>
             <Flex justify={"space-between"}>
               <Text
@@ -721,8 +678,12 @@ export default function Home() {
                   바로가기
                 </Text>
               </Flex>
+              
             </Flex>
+            
           </Center>
+          
+          
         </Flex>
       </Center>
     </div>
