@@ -10,11 +10,12 @@ export async function GET(request: NextRequest) {
   );
 
   const searchParams = request.nextUrl.searchParams;
-  const school_name = searchParams.get("query");
+  const school_id = searchParams.get("query");
 
   const { data, error } = await supabase.rpc("get_school_ranking_data_web", {
-    input_school_name: school_name,
+    input_school_id: school_id,
   });
+  console.log(data);
 
   return NextResponse.json(data[0], {
     status: 200,

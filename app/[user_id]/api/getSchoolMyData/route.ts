@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
   const { data, error } = await supabase.rpc("get_school_my_data", {
     input_user_id: user_id,
   });
+  console.log(data);
 
   return NextResponse.json(data[0], {
     status: 200,

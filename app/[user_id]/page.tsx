@@ -34,12 +34,14 @@ export default function Home() {
     schoolName: string;
     myScore: number;
     myRanking: number;
+    mySchoolId: number;
   }
 
   const [myData, setMyData] = useState<myInfo>({
     schoolName: "",
     myScore: 0,
     myRanking: 0,
+    mySchoolId: 0,
   });
 
   // 내 학교 정보
@@ -112,24 +114,25 @@ export default function Home() {
   const user_id = pathName.substr(1);
 
   //SchoolSummaryData 값 읽어오기
-  const handleSchoolSummaryData = async () => {
+  const handleSchoolMyData = async () => {
     const result = await axios.get(
-      "[user_id]/api/getSchoolSummaryData/?query=" + user_id
+      "[user_id]/api/getSchoolMyData/?query=" + user_id
     );
     if (result.status === 200) {
       const tempData: myInfo = {
         schoolName: result.data["school_name"],
         myScore: result.data["score"],
         myRanking: result.data["ranking"],
+        mySchoolId: result.data["school_id"],
       };
       setMyData(tempData);
     }
   };
 
   //SchoolRankingData 값 읽어오기
-  const handleSchoolRankingData = async (schoolName: string) => {
+  const handleSchoolRankingData = async (schoolId: number) => {
     const result = await axios.get(
-      "[user_id]/api/getSchoolRankingData/?query=" + schoolName
+      "[user_id]/api/getSchoolRankingData/?query=" + schoolId
     );
     if (result.status === 200) {
       setMySchoolRanking(result.data);
@@ -145,28 +148,20 @@ export default function Home() {
   // };
 
   useEffect(() => {
-    if (!myData.schoolName) {
+    if (!myData.mySchoolId) {
       return;
     } else {
-      handleSchoolRankingData(myData.schoolName);
+      handleSchoolRankingData(myData.mySchoolId);
     }
-  }, [myData.schoolName]);
+  }, [myData.mySchoolId]);
 
   useEffect(() => {
-    handleSchoolSummaryData();
+    handleSchoolMyData();
   }, []);
 
   useEffect(() => {
     handleLeagueClick("etc");
   }, []);
-
-  useEffect(() => {
-    if (!myData.schoolName) {
-      return;
-    } else {
-      handleSchoolRankingData(myData.schoolName);
-    }
-  }, [myData.schoolName]);
 
   // 학생 리그 분류
   const [activeButton, setActiveButton] = useState<string>("etc");
@@ -611,11 +606,12 @@ export default function Home() {
                 fontSize: "12px",
                 fontWeight: "600",
                 color: "rgba(0,0,0,0.7)",
-                margin: "20px 0px 0px 0px"
+                margin: "20px 0px 0px 0px",
               }}
               className={ibm.className}
             >
-              (1등 못해도 @dopaminedefense 태그해서 공개로 올리면 카페 기프티콘을 무조건 받을 수 있어요!)
+              (1등 못해도 @dopaminedefense 태그해서 공개로 올리면 카페
+              기프티콘을 무조건 받을 수 있어요!)
             </Text>
           </Flex>
           <Flex direction={"column"}>
@@ -678,12 +674,8 @@ export default function Home() {
                   바로가기
                 </Text>
               </Flex>
-              
             </Flex>
-            
           </Center>
-          
-          
         </Flex>
       </Center>
     </div>
